@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive Navigation | SkillCraft</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: white;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 0;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+      transition: all 0.4s ease;
+    }
+
+    .navbar.scrolled {
+      background-color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar li {
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .navbar li::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background-color: #00ffff;
+      transition: 0.3s;
+    }
+
+    .navbar li:hover::after {
+      width: 100%;
+    }
+
+    .navbar li:hover {
+      color: #00ffff;
+      transform: scale(1.05);
+    }
+
+    section {
+      height: 100vh;
+      padding: 100px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    section h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    section p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar ul {
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.8);
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        display: none;
+      }
+
+      .navbar ul.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: white;
+      }
+    }
+
+    .menu-toggle {
+      display: none;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="menu-toggle" id="menuToggle">☰</div>
+    <ul id="navList">
+      <li onclick="scrollToSection('home')">Home</li>
+      <li onclick="scrollToSection('about')">About</li>
+      <li onclick="scrollToSection('projects')">Projects</li>
+      <li onclick="scrollToSection('contact')">Contact</li>
+    </ul>
+  </nav>
+
+  <section id="home">
+    <h1>Welcome to SkillCraft</h1>
+    <p>Interactive & Stylish Web Navigation Menu Example</p>
+  </section>
+
+  <section id="about">
+    <h1>About Us</h1>
+    <p>We provide top-notch development internships and project experience for learners.</p>
+  </section>
+
+  <section id="projects">
+    <h1>Projects</h1>
+    <p>Explore real-time web apps and UI/UX challenges designed for hands-on learning.</p>
+  </section>
+
+  <section id="contact">
+    <h1>Contact</h1>
+    <p>Have a question? Connect with our team for guidance and mentorship.</p>
+  </section>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const menuToggle = document.getElementById('menuToggle');
+    const navList = document.getElementById('navList');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    menuToggle.addEventListener('click', () => {
+      navList.classList.toggle('show');
+    });
+
+    function scrollToSection(id) {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        navList.classList.remove('show');
+      }
+    }
+  </script>
+
+</body>
+</html>
